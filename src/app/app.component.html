@@ -1,3 +1,55 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+	<div class="col-md-3">
+		<ul class="nav nav-stacked">
+			<li role="presentation" class="active"><a href="#">Log New Thing</a></li>
+			<hr>
+			<li role="presentation"><a href="#">Inbox</a></li>
+			<hr>
+			<li role="presentation"><a href="#">Next Actions</a></li>
+			<li role="presentation"><a href="#">Waiting For</a></li>
+			<li role="presentation"><a href="#">Someday</a></li>
+			<hr>
+			<li role="presentation"><a href="#">Trash</a></li>
+			<li role="presentation"><a href="#">Completed</a></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title">Enter a new thing!</h1>
+			</div>
+			<div class="panel-body">
+				<form #inboxForm="ngForm" (ngSubmit)="addTask()">
+					<div class="form-group">
+						<input id="taskSummary" 
+							class="form-control" 
+							type="text" 
+							required 
+							[(ngModel)]='new_task.summary'
+							name="taskSummary"
+						/>
+					</div>
+					<button class="btn btn-default" 
+						type="submit"
+						[disabled]="!inboxForm.form.valid"
+						>Log it</button>
+					<button class="btn btn-default" type="button" (click)="writeMasterList()">
+						Write it
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="panel panel-default" *ngIf="master_list.length">
+			<div class="panel-heading">
+				<h2 class="panel-title">Inbox</h2>
+			</div>
+			<div class="panel-body">
+				<ul>
+					<li *ngFor="let task of master_list">
+						{{ task.summary }}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

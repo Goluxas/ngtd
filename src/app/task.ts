@@ -17,12 +17,13 @@ export class Task {
     public is_recurring?: boolean,
     public frequency?: string,
     public recurring_days?: string,
-  ) {
-    this.captured_date = new Date();
-    this.category = "inbox";
-  }
+  ) { }
 
   public parseTags(): void {
+    if (this.summary.length == 0) {
+      return;
+    }
+
     let tags: string[] = [];
 
     let words = this.summary.trim().split(' ');
@@ -34,6 +35,7 @@ export class Task {
     }
 
     this.tags = tags;
+    this.processSpecialTags();
   }
 
   public processSpecialTags(): void {
@@ -89,6 +91,32 @@ export class Task {
 
           case "#deadline": {
             this.is_deadline = true;
+            break;
+          }
+
+          // temporary for testing
+          case "#next": {
+            this.category = 'next';
+            break;
+          }
+
+          case "#wait": {
+            this.category = 'waiting';
+            break;
+          }
+
+          case "#some": {
+            this.category = 'someday';
+            break;
+          }
+
+          case "#calendar": {
+            this.category = 'calendar';
+            break;
+          }
+
+          case "#complete": {
+            this.category = 'completed';
             break;
           }
         }

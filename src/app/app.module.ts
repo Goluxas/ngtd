@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { TaskService } from './task.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TaskDetailComponent
   ],
   imports: [
     BrowserModule,

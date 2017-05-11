@@ -41,10 +41,8 @@
 				<h2 class="panel-title">{{ selected_name }}</h2>
 			</div>
 			<div class="panel-body">
-				<ul>
-					<li *ngFor="let task of selected_list">
-						{{ task.summary }}
-					</li>
+				<ul class="list-group">
+					<task-detail *ngFor="let task of selected_list" [task]="task"></task-detail>
 				</ul>
 			</div>
 		</div>

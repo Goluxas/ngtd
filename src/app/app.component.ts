@@ -45,4 +45,11 @@ export class AppComponent implements OnInit {
     this.selected_name = list;
     this.selected_list = this.master_list.filter( task => task.category == list );
   }
+
+  taskListChanged(evt: boolean): void {
+    if (evt) {
+      // refresh the current list
+      this.selectList(this.selected_name);
+    }
+  }
 }

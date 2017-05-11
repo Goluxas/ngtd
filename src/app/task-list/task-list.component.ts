@@ -33,7 +33,7 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     let selected_list: SimpleChange = changes.selected_name;
-    let refresh: SimpleChange = changes.refresh;
+
     if (selected_list) {
       console.log("Changing from " + selected_list.previousValue + " to " + selected_list.currentValue);
       this.changeList( selected_list.currentValue );
@@ -44,13 +44,6 @@ export class TaskListComponent implements OnInit, OnChanges {
     this.selected_name = list;
     this.task_svc.getTaskList(this.selected_name)
       .subscribe(tasks => this.list = tasks);
-  }
-
-  taskChanged(evt: boolean): void {
-    if (evt) {
-      // refresh the current list
-      this.changeList(this.selected_name);
-    }
   }
 }
 

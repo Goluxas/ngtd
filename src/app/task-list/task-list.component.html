@@ -7,7 +7,6 @@
 			<task-detail 
 				*ngFor="let task of list" 
 				[task]="task"
-				(changed)="taskChanged($event)"
 			></task-detail>
 		</ul>
 	</div>

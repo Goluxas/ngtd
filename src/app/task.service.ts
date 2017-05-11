@@ -55,15 +55,20 @@ export class TaskService {
   }
 
   addTask(summary: string): void {
-    let new_task = new Task(this.index);
+    let task_id = this.tasks.getValue().length;
+    let new_task = new Task(task_id);
     new_task.summary = summary;
     new_task.captured_date = new Date();
     new_task.category = 'inbox';
     new_task.parseTags();
 
-    this.index += 1;
-    //this.master_list.push(new_task);
     this.tasks.getValue().push(new_task);
     this.tasks.next( this.tasks.getValue() );
+  }
+
+  updateTask(updated_task: Task): void {
+    let master_list = this.tasks.getValue();
+    master_list[updated_task.id] = updated_task;
+    this.tasks.next( master_list );
   }
 }

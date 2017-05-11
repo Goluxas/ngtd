@@ -2,11 +2,10 @@ import {
   Component, 
   OnInit, 
   Input,
-  Output,
-  EventEmitter
 } from '@angular/core';
 
 import { Task } from '../task';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'task-detail',
@@ -18,10 +17,7 @@ export class TaskDetailComponent implements OnInit {
   @Input()
   task: Task;
 
-  @Output()
-  changed: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  constructor() { }
+  constructor(private task_svc: TaskService) { }
 
   ngOnInit() {
   }
@@ -30,13 +26,13 @@ export class TaskDetailComponent implements OnInit {
     this.task.category = 'trash';
     console.log('trashed task');
     console.log(this.task)
-    this.changed.emit(true);
+    this.task_svc.updateTask(this.task);
   }
 
   moveToCompleted() {
     this.task.category = 'completed';
     console.log('completed task');
     console.log(this.task)
-    this.changed.emit(true);
+    this.task_svc.updateTask(this.task);
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Task } from './task';
-import { TaskService } from './task.service';
+import { TaskService } from './task/task.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ export class AppComponent implements OnInit {
   selected_list: string = "next";
 
   summary: string = '';
-  new_task: Task = new Task(0);
 
   constructor(private task_svc: TaskService) {}
 

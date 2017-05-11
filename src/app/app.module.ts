@@ -5,25 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { TaskService } from './task.service';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TaskDetailComponent } from './task-detail/task-detail.component';
-import { TaskListComponent } from './task-list/task-list.component';
+
+import { TaskModule } from './task/task.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskDetailComponent,
-    TaskListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    TaskModule,
   ],
-  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

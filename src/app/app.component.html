@@ -1,14 +1,14 @@
 <div class="container">
 	<div class="col-md-3">
 		<ul class="nav nav-stacked">
-			<li role="presentation"><a (click)="selectList('inbox')" href="#">Inbox</a></li>
+			<li role="presentation"><a (click)="changeList('inbox')" href="#">Inbox</a></li>
 			<hr>
-			<li role="presentation"><a (click)="selectList('next')" href="#">Next Actions</a></li>
-			<li role="presentation"><a (click)="selectList('waiting')" href="#">Waiting For</a></li>
-			<li role="presentation"><a (click)="selectList('someday')" href="#">Someday</a></li>
+			<li role="presentation"><a (click)="changeList('next')" href="#">Next Actions</a></li>
+			<li role="presentation"><a (click)="changeList('waiting')" href="#">Waiting For</a></li>
+			<li role="presentation"><a (click)="changeList('someday')" href="#">Someday</a></li>
 			<hr>
-			<li role="presentation"><a (click)="selectList('trash')" href="#">Trash</a></li>
-			<li role="presentation"><a (click)="selectList('completed')" href="#">Completed</a></li>
+			<li role="presentation"><a (click)="changeList('trash')" href="#">Trash</a></li>
+			<li role="presentation"><a (click)="changeList('completed')" href="#">Completed</a></li>
 		</ul>
 	</div>
 	<div class="col-md-9">
@@ -34,19 +34,6 @@
 				</form>
 			</div>
 		</div>
-		<div class="panel panel-default" *ngIf="selected_name != 'none'">
-			<div class="panel-heading">
-				<h2 class="panel-title">{{ selected_name }}</h2>
-			</div>
-			<div class="panel-body">
-				<ul class="list-group">
-					<task-detail 
-						*ngFor="let task of selected_list" 
-						[task]="task"
-						(changed)="taskListChanged($event)"
-					></task-detail>
-				</ul>
-			</div>
-		</div>
+		<task-list [list]="selected_list"></task-list>
 	</div>
 </div>

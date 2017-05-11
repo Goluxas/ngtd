@@ -1,0 +1,14 @@
+<div class="panel panel-default" *ngIf="selected_name != 'none'">
+	<div class="panel-heading">
+		<h2 class="panel-title">{{ selected_name }}</h2>
+	</div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<task-detail 
+				*ngFor="let task of list" 
+				[task]="task"
+				(changed)="taskChanged($event)"
+			></task-detail>
+		</ul>
+	</div>
+</div>

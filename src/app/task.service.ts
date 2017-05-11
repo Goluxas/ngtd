@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
 import { Task } from './task';
 
 @Injectable()
 export class TaskService {
 
-  tasks = [
+  TASKS = [
     'get mac from car #home #gtd #next',
     'create new ng project for GTD app #anywhere #mac #gtd #next',
     'write more vira notes #anywhere #writing #next',
@@ -29,17 +33,23 @@ export class TaskService {
     'get week 3 hots rewards #starting-on #5/9 #calendar',
   ];
 
-  master_list: Task[] = [];
   index: number = 0;
+  tasks: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
 
   constructor() { }
 
-  getTasks(): Promise<Task[]> {
-    return Promise.resolve(this.master_list);
+  getTasks(): Observable<Task[]> {
+    return this.tasks.asObservable();
+  }
+
+  getTaskList(list: string): Observable<Task[]> {
+    return this.getTasks().map(
+      tasks => tasks.filter(task => task.category == list)
+    );
   }
 
   parseInitialTasks(): void {
-    for (let summary of this.tasks) {
+    for (let summary of this.TASKS) {
       this.addTask(summary);
     }
   }
@@ -51,7 +61,9 @@ export class TaskService {
     new_task.category = 'inbox';
     new_task.parseTags();
 
-    this.master_list.push(new_task);
     this.index += 1;
+    //this.master_list.push(new_task);
+    this.tasks.getValue().push(new_task);
+    this.tasks.next( this.tasks.getValue() );
   }
 }

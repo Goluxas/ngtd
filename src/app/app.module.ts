@@ -9,11 +9,13 @@ import { TaskService } from './task.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,

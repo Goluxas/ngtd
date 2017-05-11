@@ -11,7 +11,7 @@ import { TaskService } from './task.service';
 export class AppComponent implements OnInit {
   master_list: Task[];
   selected_list: Task[];
-  selected_name: string = 'none';
+  selected_name: string = 'inbox';
 
   summary: string = '';
   new_task: Task = new Task(0);

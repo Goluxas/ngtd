@@ -4,7 +4,9 @@ const router = express.Router();
 // declare axios for making http requests
 const axios = require('axios');
 const mongoose = require('mongoose');
-const url = 'mongodb://goluxas:conflicttheory@ds053312.mlab.com:53312/ngtd';
+var url = require('./mongoose-conf.json');
+url = url.url;
+//const url = 'mongodb://goluxas:conflicttheory@ds053312.mlab.com:53312/ngtd';
 
 const Task = require('../models/task');
 

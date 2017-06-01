@@ -1,10 +1,11 @@
 export class Task {
   constructor(
-    public id: number,
     public summary?: string,
     public notes?: string,
 
-    public captured_date?: Date,
+    // this property is not in the mongoose schema definition because
+    // timestamps: true creates it and updatedAt by default
+    public capturedAt?: Date,
 
     public target_date?: Date,
     public is_deadline?: boolean,
@@ -29,7 +30,7 @@ export class Task {
     let words = this.summary.trim().split(' ');
 
     for (let word of words) {
-      if (word.length > 0 && word.charAt(0)) {
+      if (word.length > 0 && word.charAt(0) == '#') {
         tags.push(word);
       }
     }

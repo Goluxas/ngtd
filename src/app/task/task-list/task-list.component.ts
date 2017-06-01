@@ -25,7 +25,7 @@ export class TaskListComponent implements OnInit, OnChanges {
   constructor(private task_svc: TaskService) {}
 
   ngOnInit(): void {
-    this.task_svc.parseInitialTasks();
+    //this.task_svc.parseInitialTasks();
     //this.task_svc.getTaskList(this.selected_name)
     //.then(tasks => this.list = tasks);
     this.changeList('next');

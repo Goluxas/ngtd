@@ -21,6 +21,21 @@ export class AppComponent implements OnInit {
     // adds the task and since the task-list uses an observable,
     // automatically refreshes the list
     this.task_svc.addTask(this.summary);
+
+    this.task_svc.postTasks().subscribe(
+      status => {
+        if (status) {
+          console.log('master tasks updated');
+        }
+        else { 
+          console.log('error updating master tasklist');
+        }
+      },
+      err => {
+        //console.log(err);
+      }
+    );
+
     this.summary = '';
   }
 

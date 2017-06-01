@@ -32,14 +32,15 @@ router.post('/tasks', (req, res) => {
   console.log('post request received');
   tasklist = req.body;
 
-  Task.insertMany(tasklist, (err, tasks) => {
-    if (err) {
-      res.status(200).json({status: false});
-      return console.log(err);
-    }
+  for (task of tasklist) {
+    mgTask = new Task(task);
+    Task.findByIdAndUpdate(mgTask._id, mgTask, {upsert:true}, (err) => {
+      if (err) return console.log(err);
+    });
+  }
 
-    res.status(200).json({status: true});
-  });
+  res.status(200).json({status: true});
+
 });
 
 module.exports = router;

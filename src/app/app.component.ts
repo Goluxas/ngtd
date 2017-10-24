@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
     // automatically refreshes the list
     this.task_svc.addTask(this.summary);
 
+    /*
     this.task_svc.postTasks().subscribe(
       status => {
         if (status) {
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit {
         //console.log(err);
       }
     );
+    */
 
     this.summary = '';
   }

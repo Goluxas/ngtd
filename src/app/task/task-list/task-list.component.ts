@@ -18,9 +18,10 @@ import { TaskService } from '../task.service';
 export class TaskListComponent implements OnInit, OnChanges {
 
   @Input('list')
-  selected_name: string = 'none';
+  selected_name: string = 'next';
 
-  list: Task[];
+  master_list: Task[] = [];
+  list: Task[] = [];
 
   constructor(private task_svc: TaskService) {}
 
@@ -28,7 +29,7 @@ export class TaskListComponent implements OnInit, OnChanges {
     //this.task_svc.parseInitialTasks();
     //this.task_svc.getTaskList(this.selected_name)
     //.then(tasks => this.list = tasks);
-    this.changeList('next');
+    this.getList();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,10 +41,24 @@ export class TaskListComponent implements OnInit, OnChanges {
     }
   }
 
+  getList(): void {
+    this.task_svc.tasklist$.subscribe(
+      (tasklist) => {
+        this.master_list = tasklist;
+        this.changeList(this.selected_name);
+      },
+      console.error,
+    );
+  }
+
   changeList(list: string): void {
+    /*
     this.selected_name = list;
     this.task_svc.getTaskList(this.selected_name)
       .subscribe(tasks => this.list = tasks);
+    */
+    this.selected_name = list;
+    this.list = this.master_list.filter( (task) => task.category == list );
   }
 }
 

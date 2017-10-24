@@ -6,7 +6,6 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 var url = require('./mongoose-conf.json');
 url = url.url;
-//const url = 'mongodb://goluxas:conflicttheory@ds053312.mlab.com:53312/ngtd';
 
 const Task = require('../models/task');
 
@@ -22,11 +21,17 @@ router.get('/', (req, res) => {
 });
 
 // Get all tasks
-router.get('/tasks', (req, res) => {
-  Task.find({}, (err, tasks) => {
-    if (err) return console.log(err);
+router.get('/tasks/get', (req, res) => {
+  console.log('Fetching master list.');
 
-    res.status(200).json(tasks);
+  Task.find({}, (err, tasks) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({status:false});
+    }
+
+    console.log('Master list sent.');
+    return res.status(200).json(tasks);
   });
 });
 
@@ -43,6 +48,40 @@ router.post('/tasks', (req, res) => {
 
   res.status(200).json({status: true});
 
+});
+
+router.post('/tasks/post', (req, res) => {
+  console.log('Received new task:');
+
+  let task = req.body;
+  console.log(task);
+
+  Task.create(task, (err, new_task) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({status:false});
+    }
+
+    console.log('Task created');
+    return res.status(200).json({status:true});
+  });
+});
+
+router.post('/tasks/update', (req, res) => {
+  console.log('Received task to update:');
+
+  let task = req.body;
+  console.log(task);
+
+  Task.update({_id: task._id}, task, (err, updated_task) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({status:false});
+    }
+
+    console.log('Task updated.');
+    return res.status(200).json({status:true});
+  });
 });
 
 module.exports = router;
